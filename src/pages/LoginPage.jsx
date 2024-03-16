@@ -9,10 +9,13 @@ import {
   Text,
   Pressable,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginPage = () => {
+  const navigation = useNavigation();
+
   const onRegisterPress = () => {
-    console.log("onRegisterPress");
+    navigation.replace("Register");
   };
 
   return (

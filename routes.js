@@ -5,15 +5,17 @@ import { Ionicons } from "@expo/vector-icons";
 import HomePage from "./src/pages/HomePage";
 import LoginPage from "./src/pages/LoginPage";
 import RegisterPage from "./src/pages/RegisterPage";
+import { TransitionPresets } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const Routes = () => {
+const MainTabs = () => {
   return (
     <>
       <Tab.Navigator
         screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused }) => {
             let iconName;
 
@@ -30,8 +32,22 @@ const Routes = () => {
         <Tab.Screen name="Home" component={HomePage} />
         <Tab.Screen name="Login" component={LoginPage} />
       </Tab.Navigator>
-      
     </>
+  );
+};
+const Routes = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{ ...TransitionPresets.ModalSlideFromBottomIOS }}
+    >
+      <Stack.Screen
+        name="MainTabs"
+        component={MainTabs}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen name="Register" component={RegisterPage} />
+    </Stack.Navigator>
   );
 };
 

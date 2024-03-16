@@ -9,10 +9,13 @@ import {
   Text,
   Pressable,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterPage = () => {
+  const navigation = useNavigation();
+
   const onLoginPress = () => {
-    console.warn("onLoginPress");
+    navigation.replace("MainTabs", { screen: "Login" });
   };
 
   return (
@@ -32,6 +35,13 @@ const RegisterPage = () => {
       <TextInput
         style={styles.textInput}
         placeholder="Enter password"
+        autoComplete="off"
+        autoCorrect={false}
+        secureTextEntry={true}
+      />
+      <TextInput
+        style={styles.textInput}
+        placeholder="Confirm password"
         autoComplete="off"
         autoCorrect={false}
         secureTextEntry={true}
