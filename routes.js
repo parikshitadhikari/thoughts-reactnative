@@ -38,7 +38,9 @@ const MainTabs = () => {
 const Routes = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ ...TransitionPresets.ModalSlideFromBottomIOS }}
+      screenOptions={{
+        ...TransitionPresets.ModalSlideFromBottomIOS,
+      }}
     >
       <Stack.Screen
         name="MainTabs"
