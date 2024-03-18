@@ -3,7 +3,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://auth-mern-ajyg.onrender.com",
+  baseUrl: "https://auth-reactnative.onrender.com",
 });
 
 export const apiSlice = createApi({

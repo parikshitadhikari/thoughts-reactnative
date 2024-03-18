@@ -17,16 +17,25 @@ const LoginPage = () => {
 
   const [login, { isLoading }] = useLoginMutation();
 
+  const isEmpty = (input) => {
+    return input.trim() === "";
+  };
   const handlePress = async () => {
-    try {
-      const res = await login({
-        email: email.toLowerCase(),
-        password,
-      }).unwrap();
-      console.log(res);
-      console.log("successfull login");
-    } catch (err) {
-      alert(err?.data?.message || err.error);
+    if (isEmpty(email) || isEmpty(password)) {
+      alert("Please fill in all fields");
+    } else {
+      try {
+        const res = await login({
+          email: email.toLowerCase(),
+          password,
+        }).unwrap();
+        console.log(res);
+        console.log("successfull login");
+      } catch (err) {
+        alert(err?.data?.message || err.error);
+      }
+      setEmail("");
+      setPassword("");
     }
   };
   const onRegisterPress = () => {
@@ -52,7 +61,7 @@ const LoginPage = () => {
         autoComplete="off"
         autoCorrect={false}
         autoCapitalize="none"
-        // secureTextEntry={true}
+        secureTextEntry={true}
         value={password}
         onChangeText={(text) => {
           setPassword(text);

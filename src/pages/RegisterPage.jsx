@@ -23,9 +23,21 @@ const RegisterPage = () => {
   const onLoginPress = () => {
     navigation.replace("MainTabs", { screen: "Login" });
   };
+
+  const isEmpty = (input) => {
+    return input.trim() === "";
+  };
+
   const handlePress = async () => {
     if (password !== confirmPassword) {
       alert("Passwords donot match");
+    } else if (
+      isEmpty(name) ||
+      isEmpty(email) ||
+      isEmpty(password) ||
+      isEmpty(confirmPassword)
+    ) {
+      alert("Please fill in all fields");
     } else {
       try {
         const res = await register({
@@ -33,10 +45,14 @@ const RegisterPage = () => {
           email: email.toLowerCase(),
           password,
         }).unwrap();
-        console.log("register successful")
+        console.log("register successful");
       } catch (err) {
         alert(err?.data?.message || err.error);
       }
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     }
   };
 
@@ -70,7 +86,7 @@ const RegisterPage = () => {
         autoComplete="off"
         autoCorrect={false}
         autoCapitalize="none"
-        // secureTextEntry={true}
+        secureTextEntry={true}
         value={password}
         onChangeText={(text) => {
           setPassword(text);
@@ -82,7 +98,7 @@ const RegisterPage = () => {
         autoComplete="off"
         autoCorrect={false}
         autoCapitalize="none"
-        // secureTextEntry={true}
+        secureTextEntry={true}
         value={confirmPassword}
         onChangeText={(text) => {
           setConfirmPassword(text);
