@@ -31,6 +31,7 @@ const LoginPage = () => {
         }).unwrap();
         console.log(res);
         console.log("successfull login");
+        navigation.navigate("Home");
       } catch (err) {
         alert(err?.data?.message || err.error);
       }
@@ -47,6 +48,7 @@ const LoginPage = () => {
       <TextInput
         style={styles.textInput}
         placeholder="Enter email"
+        keyboardType="email-address"
         autoComplete="off"
         autoCorrect={false}
         autoCapitalize="none"
@@ -80,6 +82,7 @@ const LoginPage = () => {
           <Text style={{ color: "blue" }}>Create One</Text>
         </Text>
       </Pressable>
+      {isLoading && <Text>Loading...</Text>}
     </View>
   );
 };

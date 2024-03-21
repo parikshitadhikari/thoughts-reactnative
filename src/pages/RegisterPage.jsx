@@ -46,6 +46,7 @@ const RegisterPage = () => {
           password,
         }).unwrap();
         console.log("register successful");
+        navigation.navigate("MainTabs", {screen: "Home"})
       } catch (err) {
         alert(err?.data?.message || err.error);
       }
@@ -116,6 +117,7 @@ const RegisterPage = () => {
           Already have an account? <Text style={{ color: "blue" }}>Login</Text>
         </Text>
       </Pressable>
+      {isLoading && <Text>Loading...</Text>}
     </View>
   );
 };
