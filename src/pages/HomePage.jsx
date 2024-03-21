@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { loadCredentials } from "../slices/authSlice";
 
+const HomePage = ({ navigate }) => {
+  const dispatch = useDispatch()
+  const userInfo = useSelector((state) => state.auth.userInfo);
 
-const HomePage = ({navigate}) => {
+  useEffect(() => {
+    dispatch(loadCredentials())
+  }, [dispatch])
+
   return (
     <View style={styles.container}>
-        <Text>HomePage</Text>
+      {userInfo ? <Text>{userInfo.name}</Text> : <Text>HomePage</Text>}
     </View>
   );
 };

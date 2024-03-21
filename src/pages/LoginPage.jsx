@@ -9,9 +9,12 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useLoginMutation } from "../slices/usersApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/authSlice"; 
 
 const LoginPage = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,8 +32,7 @@ const LoginPage = () => {
           email: email.toLowerCase(),
           password,
         }).unwrap();
-        console.log(res);
-        console.log("successfull login");
+        dispatch(setCredentials(res))
         navigation.navigate("Home");
       } catch (err) {
         alert(err?.data?.message || err.error);

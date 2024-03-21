@@ -9,9 +9,12 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useRegisterMutation } from "../slices/usersApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
 const RegisterPage = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [register, { isLoading }] = useRegisterMutation();
 
@@ -45,8 +48,8 @@ const RegisterPage = () => {
           email: email.toLowerCase(),
           password,
         }).unwrap();
-        console.log("register successful");
-        navigation.navigate("MainTabs", {screen: "Home"})
+        dispatch(setCredentials(res))
+        navigation.navigate("MainTabs", { screen: "Home" });
       } catch (err) {
         alert(err?.data?.message || err.error);
       }
