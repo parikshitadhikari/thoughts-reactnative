@@ -15,7 +15,8 @@ const authSlice = createSlice({
         .then(() => console.log("User successfully saved"))
         .catch((err) => console.error("Error saving user: ", err));
     },
-    logout: () => {
+    logout: (state) => {
+      state.userInfo = null
       AsyncStorage.removeItem("userInfo")
     }
   },
