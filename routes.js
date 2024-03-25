@@ -6,11 +6,14 @@ import HomePage from "./src/pages/HomePage";
 import LoginPage from "./src/pages/LoginPage";
 import RegisterPage from "./src/pages/RegisterPage";
 import { TransitionPresets } from "@react-navigation/stack";
+import { useSelector } from "react-redux";
+import ProfilePage from "./src/pages/ProfilePage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
 const MainTabs = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+
   return (
     <>
       <Tab.Navigator
@@ -24,13 +27,20 @@ const MainTabs = () => {
             } else if (route.name === "Login") {
               iconName = focused ? "log-in" : "log-in-outline";
             }
+            else if (route.name === "Profile") {
+              iconName = focused ? "people-sharp" : "people-outline"
+            }
 
             return <Ionicons name={iconName} size={24} />;
           },
         })}
       >
         <Tab.Screen name="Home" component={HomePage} />
-        <Tab.Screen name="Login" component={LoginPage} />
+        {userInfo ? (
+          <Tab.Screen name="Profile" component={ProfilePage} />
+        ) : (
+          <Tab.Screen name="Login" component={LoginPage} />
+        )}
       </Tab.Navigator>
     </>
   );

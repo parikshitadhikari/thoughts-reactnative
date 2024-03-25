@@ -14,15 +14,10 @@ const authSlice = createSlice({
       AsyncStorage.setItem("userInfo", JSON.stringify(action.payload))
         .then(() => console.log("User successfully saved"))
         .catch((err) => console.error("Error saving user: ", err));
-      AsyncStorage.getAllKeys()
-        .then((keys) => AsyncStorage.multiGet(keys))
-        .then((result) => {
-          console.log("AsyncStorage Data:", result);
-        })
-        .catch((error) => {
-          console.error("Error retrieving AsyncStorage data:", error);
-        });
     },
+    logout: () => {
+      AsyncStorage.removeItem("userInfo")
+    }
   },
 });
 
@@ -30,11 +25,11 @@ export const loadCredentials = () => async (dispatch) => {
   try {
     const userInfoJSON = await AsyncStorage.getItem("userInfo");
     const userInfo = userInfoJSON ? JSON.parse(userInfoJSON) : null;
-    dispatch(setCredentials(userInfo)); // Dispatch a synchronous action to update the state
+    dispatch(setCredentials(userInfo)); // Dispatching a synchronous action to update the state
   } catch (error) {
     console.error("Error loading user:", error);
   }
 };
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;
