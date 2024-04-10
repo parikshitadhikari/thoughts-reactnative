@@ -1,8 +1,19 @@
-import express from "express"
-import { addThought } from "../controllers/thoughtController.js"
+import express from "express";
+import {
+  getAllThought,
+  addThought,
+  deleteThought,
+  editThought,
+} from "../controllers/thoughtController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/add", addThought)
+// /api/thoughts , public
+router.get("/", getAllThought);
+// add thought, /api/thoughts/add , private
+router.post("/add", protect, addThought);
+router.delete("/", protect, deleteThought);
+router.put("/", protect, editThought);
 
-export default router
+export default router;
