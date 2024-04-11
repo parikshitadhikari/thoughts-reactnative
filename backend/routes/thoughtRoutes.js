@@ -14,6 +14,6 @@ router.get("/", getAllThought);
 // add thought, /api/thoughts/add , private
 router.post("/add/:userId", protect, addThought);
 router.delete("/:thoughtId", protect, deleteThought);
-router.put("/", protect, editThought);
+router.put("/:thoughtId", protect, editThought);
 
 export default router;
