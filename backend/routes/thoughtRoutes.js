@@ -12,8 +12,8 @@ const router = express.Router();
 // /api/thoughts , public
 router.get("/", getAllThought);
 // add thought, /api/thoughts/add , private
-router.post("/add", protect, addThought);
-router.delete("/", protect, deleteThought);
+router.post("/add/:userId", protect, addThought);
+router.delete("/:thoughtId", protect, deleteThought);
 router.put("/", protect, editThought);
 
 export default router;

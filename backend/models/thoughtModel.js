@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const thoughtSchema = mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    title: String,
+    text: String,
   },
   {
     timestamps: true,
