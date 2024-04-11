@@ -3,8 +3,17 @@ import Thought from "../models/thoughtModel.js";
 import mongoose from "mongoose";
 
 const getAllThought = asyncHandler(async (req, res) => {
-  res.json({ message: "get all thought" });
+  const thought = await Thought.find();
+  if (thought.length == 0) {
+    res.status(404).json({ message: "No thoughts found" });
+  } else if (thought) {
+    res.status(200).json(thought);
+  } else {
+    res.status(400);
+    throw new Error("Server Error");
+  }
 });
+
 const addThought = asyncHandler(async (req, res) => {
   const { userId } = req.params; // get user id from parameter
   const { text } = req.body; // get thought text from body
