@@ -6,10 +6,8 @@ const getAllThought = asyncHandler(async (req, res) => {
   res.json({ message: "get all thought" });
 });
 const addThought = asyncHandler(async (req, res) => {
-  // res.json({ message: "added thought" });
-  const { userId } = req.params;
-  const { text } = req.body;
-  // res.json({ userId, text });
+  const { userId } = req.params; // get user id from parameter
+  const { text } = req.body; // get thought text from body
   const objectUserId = new mongoose.Types.ObjectId(userId);
 
   const thought = await Thought.create({
@@ -25,15 +23,25 @@ const addThought = asyncHandler(async (req, res) => {
 });
 
 const deleteThought = asyncHandler(async (req, res) => {
-  // res.json({ message: "deleted thought" });
-  const { thoughtId } = req.params;
-  const deletedThought = await Thought.findByIdAndDelete(thoughtId);
-  if (deletedThought) {
-    res.json(deletedThought);
+  const userId = req.user._id; // req.user -> currently logged in user
+  const { thoughtId } = req.params; // string
+
+  const thought = await Thought.findById(thoughtId);
+  if (!thought) {
+    res.status(404).json({ message: "Thought not found" });
+  }
+  if (thought.userId.toString() === userId.toString()) {
+    // console.log(typeof thought.userId, thought.userId,",", typeof thoughtId, thoughtId,",", typeof userId, userId)
+    await thought.deleteOne();
+    res.status(200).json({
+      message: "Successfully deleted thought",
+      deletedThought: thought,
+    });
   } else {
-    res.status(500).json({ message: "Thought not found" });
+    res.status(403).json({ message: "Unauthorized" });
   }
 });
+
 const editThought = asyncHandler(async (req, res) => {
   res.json({ message: "edited thought" });
 });
