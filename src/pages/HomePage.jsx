@@ -21,9 +21,9 @@ const HomePage = () => {
 
   const { data, isFetching, isError } = useGetAllThoughtQuery();
 
-  useEffect(() => {
-    dispatch(loadCredentials());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(loadCredentials());
+  // }, [dispatch]);
 
   const handleCreate = () => {
     userInfo
@@ -47,7 +47,7 @@ const HomePage = () => {
   }
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
         {/*userInfo ? <Text>{userInfo.name}</Text> : <Text>HomePage</Text>*/}
         <View style={styles.viewContainer}>{content}</View>

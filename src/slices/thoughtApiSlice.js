@@ -5,7 +5,7 @@ export const thoughtApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addThought: builder.mutation({
       query: (data) => ({
-        url: `${THOUGHT_URL}/${userId}`,
+        url: `${THOUGHT_URL}/add/${data.userId}`,
         method: "POST",
         body: data,
       }),
