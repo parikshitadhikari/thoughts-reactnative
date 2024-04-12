@@ -1,19 +1,35 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCredentials } from "../slices/authSlice";
 import { useGetAllThoughtQuery } from "../slices/thoughtApiSlice";
 import ThoughtList from "../components/ThoughtList";
+import { Ionicons } from "@expo/vector-icons";
+import WriteThoughtPage from "./WriteThoughtPage";
+import { useNavigation } from "@react-navigation/native";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const navigation = useNavigation();
+  const { userInfo } = useSelector((state) => state.auth);
 
   const { data, isFetching, isError } = useGetAllThoughtQuery();
 
   useEffect(() => {
     dispatch(loadCredentials());
   }, [dispatch]);
+
+  const handleCreate = () => {
+    userInfo
+      ? navigation.push("WriteThought")
+      : navigation.replace("MainTabs", { screen: "Login" });
+  };
 
   let content;
   if (isFetching) {
@@ -31,10 +47,20 @@ const HomePage = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      {/*userInfo ? <Text>{userInfo.name}</Text> : <Text>HomePage</Text>*/}
-      <View style={styles.viewContainer}>{content}</View>
-    </ScrollView>
+    <View>
+      <ScrollView style={styles.container}>
+        {/*userInfo ? <Text>{userInfo.name}</Text> : <Text>HomePage</Text>*/}
+        <View style={styles.viewContainer}>{content}</View>
+      </ScrollView>
+      <TouchableOpacity
+        style={styles.createBtn}
+        activeOpacity={0.9}
+        onPress={handleCreate}
+      >
+        <Ionicons name="pencil" size={16} color="white" />
+        <Text style={{ color: "white" }}>Write a thought..</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -45,6 +71,17 @@ const styles = StyleSheet.create({
   },
   viewContainer: {
     padding: 20,
+  },
+  createBtn: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "#4636d9",
+    flexDirection: "row",
+    padding: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    gap: 5,
   },
 });
 

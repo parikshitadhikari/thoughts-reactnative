@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import HomePage from "./src/pages/HomePage";
 import LoginPage from "./src/pages/LoginPage";
 import RegisterPage from "./src/pages/RegisterPage";
+import WriteThoughtPage from "./src/pages/WriteThoughtPage";
 import { TransitionPresets } from "@react-navigation/stack";
 import { useSelector } from "react-redux";
 import ProfilePage from "./src/pages/ProfilePage";
@@ -26,9 +27,8 @@ const MainTabs = () => {
               iconName = focused ? "home" : "home-outline";
             } else if (route.name === "Login") {
               iconName = focused ? "log-in" : "log-in-outline";
-            }
-            else if (route.name === "Profile") {
-              iconName = focused ? "people-sharp" : "people-outline"
+            } else if (route.name === "Profile") {
+              iconName = focused ? "people-sharp" : "people-outline";
             }
 
             return <Ionicons name={iconName} size={24} />;
@@ -59,6 +59,11 @@ const Routes = () => {
       />
 
       <Stack.Screen name="Register" component={RegisterPage} />
+      <Stack.Screen
+        name="WriteThought"
+        component={WriteThoughtPage}
+        options={{ headerBackTitle: "Back" }}
+      />
     </Stack.Navigator>
   );
 };
