@@ -67,7 +67,6 @@ const HomePage = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#e8e4e3",
-    marginTop: 30,
   },
   viewContainer: {
     padding: 20,

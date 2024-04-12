@@ -19,7 +19,9 @@ const MainTabs = () => {
     <>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          headerShown: false,
+          headerShown: route.name === "Home", // header is only shown for homepage
+          // route.name === "Home" && "Thoughts..." ,
+          headerTitle: route.name === "Home" ? "Thoughts..." : null, // for homepage, show the title as "thoughts..."
           tabBarIcon: ({ focused }) => {
             let iconName;
 
