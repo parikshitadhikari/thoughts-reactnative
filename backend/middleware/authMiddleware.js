@@ -3,12 +3,10 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 
 const protect = asyncHandler(async (req, res, next) => {
-  let token;
+  let token = req.headers.authorization;
 
-  //read jwt from the cookie
-  token = req.cookies.jwt; //jwt is name of the cookie, we can do this because of using cookie-parser
-
-  if (token) {
+  if (token && token.startsWith("Bearer ")) {
+    token = token.split(" ")[1];
     //if there is a token, we need to verify it
     try {
       //decode the token
