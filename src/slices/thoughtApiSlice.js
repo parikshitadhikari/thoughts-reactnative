@@ -4,10 +4,13 @@ const THOUGHT_URL = "/api/thoughts";
 export const thoughtApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addThought: builder.mutation({
-      query: (data) => ({
+      query: ({ data, token }) => ({
         url: `${THOUGHT_URL}/add/${data.userId}`,
         method: "POST",
         body: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
     }),
     deleteThought: builder.mutation({
@@ -30,6 +33,7 @@ export const thoughtApiSlice = apiSlice.injectEndpoints({
       }),
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {

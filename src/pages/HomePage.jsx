@@ -21,9 +21,9 @@ const HomePage = () => {
 
   const { data, isFetching, isError } = useGetAllThoughtQuery();
 
-  // useEffect(() => {
-  //   dispatch(loadCredentials());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(loadCredentials());
+  }, [dispatch]);
 
   const handleCreate = () => {
     userInfo

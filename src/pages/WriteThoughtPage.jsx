@@ -19,7 +19,10 @@ const WriteThoughtPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await addThought({ text: thought, userId }).unwrap();
+      const res = await addThought({
+        data: { text: thought, userId },
+        token,
+      }).unwrap();
       // console.log("res: ", res);
     } catch (error) {
       console.log(error);

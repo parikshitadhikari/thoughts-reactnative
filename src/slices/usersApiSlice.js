@@ -32,6 +32,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
   }),
+  overrideExisting: true
 });
 
 export const {
