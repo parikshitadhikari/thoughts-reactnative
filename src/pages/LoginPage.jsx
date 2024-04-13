@@ -32,7 +32,7 @@ const LoginPage = () => {
           email: email.toLowerCase(),
           password,
         }).unwrap();
-        dispatch(setCredentials(res))
+        dispatch(setCredentials({...res}))
         navigation.navigate("Home");
       } catch (err) {
         alert(err?.data?.message || err.error);

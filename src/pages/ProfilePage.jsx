@@ -25,7 +25,7 @@ const ProfilePage = () => {
   const navigation = useNavigation();
 
   const userInfo = useSelector((state) => state.auth.userInfo);
-  const token = userInfo.token;
+
   const [logoutApiCall] = useLogoutMutation();
   const [updateUser] = useUpdateUserMutation();
 
@@ -34,7 +34,8 @@ const ProfilePage = () => {
     setName(userInfo.name);
     setEmail(userInfo.email);
   }, [dispatch]);
-
+  // console.log(userInfo)
+  const token = userInfo.token;
   const handleLogout = async () => {
     await logoutApiCall(); // for destroying cookie
     dispatch(logout());
@@ -53,7 +54,7 @@ const ProfilePage = () => {
       alert("Passwords donot match");
     } else {
       try {
-        console.log("Frontend token: ", token);
+        // console.log("Frontend token: ", token);
         const res = await updateUser({
           data: {
             _id: userInfo._id,
@@ -63,7 +64,7 @@ const ProfilePage = () => {
           },
           token,
         }).unwrap();
-        dispatch(setCredentials({ ...res })); // update the credentials as well
+        dispatch(setCredentials({ ...res, token })); // update the credentials as well
         alert("Profile updated");
       } catch (err) {
         alert(err?.data?.message || err.error);

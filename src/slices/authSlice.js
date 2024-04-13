@@ -14,12 +14,10 @@ const authSlice = createSlice({
       AsyncStorage.setItem("userInfo", JSON.stringify(action.payload))
         .then(() => console.log("User successfully saved"))
         .catch((err) => console.error("Error saving user: ", err));
-      console.log(state.userInfo)
     },
     logout: (state) => {
       state.userInfo = null
       AsyncStorage.removeItem("userInfo")
-      console.log(state)
     }
   },
 });
