@@ -9,6 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { useDeleteThoughtMutation } from "../slices/thoughtApiSlice";
 import { useEditThoughtMutation } from "../slices/thoughtApiSlice";
 
@@ -93,6 +94,16 @@ const ThoughtList = ({ thought, userInfo }) => {
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
+            <Entypo
+              style={styles.modalClose}
+              name="cross"
+              size={24}
+              color="black"
+              suppressHighlighting={true}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            />
             <TextInput
               style={styles.textInput}
               value={text}
@@ -140,7 +151,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     paddingHorizontal: 25,
-    paddingVertical: 20,
+    paddingTop: 10,
+    paddingBottom: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -149,6 +161,10 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     width: "80%",
+  },
+  modalClose: {
+    marginBottom: 10,
+    marginLeft: "auto",
   },
   textInput: {
     borderWidth: 1,
