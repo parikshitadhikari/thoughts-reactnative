@@ -39,12 +39,22 @@ const HomePage = () => {
   } else if (isError) {
     content = <Text>Error loading thoughts</Text>;
   } else {
-    console.log(typeof data)
-    content = data.map((thought) => {
-      return (
-        <ThoughtList key={thought._id} thought={thought} userInfo={userInfo} />
-      );
-    });
+    console.log(typeof data);
+    content = data
+      .slice(0)
+      .reverse()
+      .map((thought) => {
+        // slice(0) creates new array or object by copying "data"
+        // .reverse() reverses the order of elements in an array or objects
+        console.log(typeof data.slice(0));
+        return (
+          <ThoughtList
+            key={thought._id}
+            thought={thought}
+            userInfo={userInfo}
+          />
+        );
+      });
   }
 
   return (
