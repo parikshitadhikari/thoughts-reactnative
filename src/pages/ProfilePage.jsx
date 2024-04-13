@@ -25,6 +25,7 @@ const ProfilePage = () => {
   const navigation = useNavigation();
 
   const userInfo = useSelector((state) => state.auth.userInfo);
+  const token = userInfo.token;
   const [logoutApiCall] = useLogoutMutation();
   const [updateUser] = useUpdateUserMutation();
 
@@ -46,16 +47,21 @@ const ProfilePage = () => {
   const handleEmailPenPress = () => {
     setEmailEdit(true);
   };
+
   const handleSubmit = async () => {
     if (password != confirmPassword) {
       alert("Passwords donot match");
     } else {
       try {
+        console.log("Frontend token: ", token);
         const res = await updateUser({
-          _id: userInfo._id,
-          name,
-          email,
-          password,
+          data: {
+            _id: userInfo._id,
+            name,
+            email,
+            password,
+          },
+          token,
         }).unwrap();
         dispatch(setCredentials({ ...res })); // update the credentials as well
         alert("Profile updated");

@@ -18,16 +18,14 @@ const WriteThoughtPage = () => {
   }, [dispatch]);
 
   const handleSubmit = async () => {
-    // console.log(userId);
-    // try {
-    //     const res = await addThought({ text: thought, userId }, {
-    //   }).unwrap();
-    //   console.log("res: ", res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const res = await addThought({ text: thought, userId }).unwrap();
+      // console.log("res: ", res);
+    } catch (error) {
+      console.log(error);
+    }
 
-    // setThought("");
+    setThought("");
   };
 
   return (
