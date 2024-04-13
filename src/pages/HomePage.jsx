@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -11,12 +11,13 @@ import { loadCredentials } from "../slices/authSlice";
 import { useGetAllThoughtQuery } from "../slices/thoughtApiSlice";
 import ThoughtList from "../components/ThoughtList";
 import { Ionicons } from "@expo/vector-icons";
-import WriteThoughtPage from "./WriteThoughtPage";
 import { useNavigation } from "@react-navigation/native";
+import SearchBar from "../components/SearchBar";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [filteredThoughts, setFilteredThoughts] = useState([]);
   const { userInfo } = useSelector((state) => state.auth);
 
   const { data, isFetching, isError } = useGetAllThoughtQuery();
@@ -31,6 +32,10 @@ const HomePage = () => {
       : navigation.replace("MainTabs", { screen: "Login" });
   };
 
+  const handleSearch = (filteredThoughts) => {
+    setFilteredThoughts(filteredThoughts);
+  };
+
   let content;
   if (isFetching) {
     content = <Text>Loading...</Text>;
@@ -39,14 +44,11 @@ const HomePage = () => {
   } else if (isError) {
     content = <Text>Error loading thoughts</Text>;
   } else {
-    console.log(typeof data);
-    content = data
-      .slice(0)
-      .reverse()
+    const thoughtsToDisplay = filteredThoughts.length ? filteredThoughts : data;
+    content = thoughtsToDisplay
+      .slice(0) // creates new array or object by copying "data"
+      .reverse() // reverses the order of elements in an array or objects
       .map((thought) => {
-        // slice(0) creates new array or object by copying "data"
-        // .reverse() reverses the order of elements in an array or objects
-        console.log(typeof data.slice(0));
         return (
           <ThoughtList
             key={thought._id}
@@ -55,12 +57,16 @@ const HomePage = () => {
           />
         );
       });
+    if (thoughtsToDisplay.length === 0) {
+      content = <Text>No thoughts found.</Text>;
+    }
   }
 
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
         {/*userInfo ? <Text>{userInfo.name}</Text> : <Text>HomePage</Text>*/}
+        <SearchBar data={data} onSearch={handleSearch} />
         <View style={styles.viewContainer}>{content}</View>
       </ScrollView>
       <TouchableOpacity
