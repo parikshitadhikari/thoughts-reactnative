@@ -1,9 +1,11 @@
 import asyncHandler from "express-async-handler";
 import Thought from "../models/thoughtModel.js";
+import User from "../models/userModel.js"
 import mongoose from "mongoose";
 
 const getAllThought = asyncHandler(async (req, res) => {
-  const thought = await Thought.find();
+  const thought = await Thought.find().populate('userId'); // the userId field now contains all details of user(acc to userModel)
+  
   if (thought.length == 0) {
     res.status(404).json({ message: "No thoughts found" });
   } else if (thought) {

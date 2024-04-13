@@ -39,6 +39,7 @@ const HomePage = () => {
   } else if (isError) {
     content = <Text>Error loading thoughts</Text>;
   } else {
+    console.log(typeof data)
     content = data.map((thought) => {
       return (
         <ThoughtList key={thought._id} thought={thought} userInfo={userInfo} />

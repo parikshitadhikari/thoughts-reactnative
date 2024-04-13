@@ -22,7 +22,7 @@ const ThoughtList = ({ thought, userInfo }) => {
     if (!userInfo) {
       Alert.alert("Login to edit your thoughts");
     } else {
-      if (thought.userId !== userInfo._id) {
+      if (thought.userId._id !== userInfo._id) {
         Alert.alert("Unauthorized");
       } else {
         setModalVisible(!modalVisible);
@@ -34,8 +34,8 @@ const ThoughtList = ({ thought, userInfo }) => {
     setModalVisible(!modalVisible);
     try {
       const token = userInfo.token;
-      const res = await editThought({
-        data:  {text} , // text: text
+      await editThought({
+        data: { text }, // text: text
         thoughtId: thought._id,
         token,
       }).unwrap();
@@ -68,6 +68,12 @@ const ThoughtList = ({ thought, userInfo }) => {
       <View style={styles.container}>
         <Text>{thought.text}</Text>
         <View style={styles.iconsView}>
+          <Text style={styles.writtenBy}>
+            {thought.userId.name === userInfo.name
+              ? "You"
+              : thought.userId.name}{" "}
+            - {thought.createdAt.slice(0, 10)}
+          </Text>
           <Feather
             name="edit"
             size={20}
@@ -113,14 +119,17 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOffset: 0.5,
     shadowOpacity: 0.5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: "column-reverse",
+    gap: 5,
   },
   iconsView: {
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
+  },
+  writtenBy: {
+    width: "80%",
+    color: "#4f4e4d",
   },
   centeredView: {
     flex: 1,
@@ -147,6 +156,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     width: "100%",
+    maxHeight: 300,
   },
   button: {
     borderRadius: 20,
