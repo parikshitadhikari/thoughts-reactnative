@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Pressable,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useRegisterMutation } from "../slices/usersApiSlice";
@@ -33,14 +34,14 @@ const RegisterPage = () => {
 
   const handlePress = async () => {
     if (password !== confirmPassword) {
-      alert("Passwords donot match");
+      Alert.alert("Passwords donot match");
     } else if (
       isEmpty(name) ||
       isEmpty(email) ||
       isEmpty(password) ||
       isEmpty(confirmPassword)
     ) {
-      alert("Please fill in all fields");
+      Alert.alert("Please fill in all fields");
     } else {
       try {
         const res = await register({
@@ -51,7 +52,7 @@ const RegisterPage = () => {
         dispatch(setCredentials(res))
         navigation.navigate("MainTabs", { screen: "Home" });
       } catch (err) {
-        alert(err?.data?.message || err.error);
+        Alert.alert(err?.data?.message || err.error);
       }
       setName("");
       setEmail("");

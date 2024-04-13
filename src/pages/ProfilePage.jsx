@@ -4,6 +4,7 @@ import {
   View,
   TouchableHighlight,
   TextInput,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +52,7 @@ const ProfilePage = () => {
 
   const handleSubmit = async () => {
     if (password != confirmPassword) {
-      alert("Passwords donot match");
+      Alert.alert("Passwords donot match");
     } else {
       try {
         // console.log("Frontend token: ", token);
@@ -65,9 +66,9 @@ const ProfilePage = () => {
           token,
         }).unwrap();
         dispatch(setCredentials({ ...res, token })); // update the credentials as well
-        alert("Profile updated");
+        Alert.alert("Profile updated");
       } catch (err) {
-        alert(err?.data?.message || err.error);
+        Alert.alert(err?.data?.message || err.error);
       }
     }
   };
@@ -86,7 +87,7 @@ const ProfilePage = () => {
             onChangeText={(text) => {
               setName(text);
             }}
-            editable={true}
+            editable={nameEdit}
           ></TextInput>
           <EvilIcons
             name="pencil"
@@ -109,7 +110,7 @@ const ProfilePage = () => {
             onChangeText={(text) => {
               setEmail(text);
             }}
-            editable={true}
+            editable={emailEdit}
           ></TextInput>
           <EvilIcons
             name="pencil"

@@ -23,10 +23,13 @@ export const thoughtApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     editThought: builder.mutation({
-      query: (data) => ({
+      query: ({ data, thoughtId, token }) => ({
         url: `${THOUGHT_URL}/${thoughtId}`,
         method: "PUT",
         body: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
     }),
     getAllThought: builder.query({

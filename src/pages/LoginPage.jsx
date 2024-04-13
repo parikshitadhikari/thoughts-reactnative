@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Pressable,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useLoginMutation } from "../slices/usersApiSlice";
@@ -25,7 +26,7 @@ const LoginPage = () => {
   };
   const handlePress = async () => {
     if (isEmpty(email) || isEmpty(password)) {
-      alert("Please fill in all fields");
+      Alert.alert("Please fill in all fields");
     } else {
       try {
         const res = await login({
@@ -35,7 +36,7 @@ const LoginPage = () => {
         dispatch(setCredentials({...res}))
         navigation.navigate("Home");
       } catch (err) {
-        alert(err?.data?.message || err.error);
+        Alert.alert(err?.data?.message || err.error);
       }
       setEmail("");
       setPassword("");

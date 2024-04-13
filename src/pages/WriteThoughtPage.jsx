@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAddThoughtMutation } from "../slices/thoughtApiSlice";
 import { loadCredentials } from "../slices/authSlice";
@@ -23,9 +23,9 @@ const WriteThoughtPage = () => {
         data: { text: thought, userId },
         token,
       }).unwrap();
-      alert("Successfully added thought");
+      Alert.alert("Successfully added thought");
     } catch (err) {
-      alert(err?.data?.message || err.error);
+      Alert.alert(err?.data?.message || err.error);
     }
     setThought("");
   };
