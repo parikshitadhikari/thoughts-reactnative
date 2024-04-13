@@ -14,9 +14,12 @@ export const thoughtApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     deleteThought: builder.mutation({
-      query: () => ({
+      query: ({ thoughtId, token }) => ({
         url: `${THOUGHT_URL}/${thoughtId}`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
     }),
     editThought: builder.mutation({
