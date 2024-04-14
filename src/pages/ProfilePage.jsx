@@ -150,10 +150,10 @@ const ProfilePage = () => {
         />
       </View>
       <TouchableHighlight style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.logout}>Submit</Text>
+        <Text style={styles.btnText}>Submit</Text>
       </TouchableHighlight>
-      <TouchableHighlight style={styles.button} onPress={handleLogout}>
-        <Text style={styles.logout}>Logout</Text>
+      <TouchableHighlight style={[styles.button, styles.btnLogout]} onPress={handleLogout}>
+        <Text style={styles.btnText}>Logout</Text>
       </TouchableHighlight>
     </View>
   );
@@ -185,11 +185,18 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "blue",
-    padding: 5,
+    paddingVertical: 5,
+    paddingHorizontal:10,
     alignSelf: "flex-start",
     marginBottom: 5,
+    borderRadius:5
   },
-  logout: {
+  btnLogout: {
+    backgroundColor: "red",
+    marginTop: 10
+  },
+  btnText: {
     color: "white",
+    fontWeight: "bold"
   },
 });

@@ -57,9 +57,6 @@ const HomePage = () => {
           />
         );
       });
-    if (thoughtsToDisplay.length === 0) {
-      content = <Text>No thoughts found.</Text>;
-    }
   }
 
   return (

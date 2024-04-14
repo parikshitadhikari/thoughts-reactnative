@@ -70,7 +70,7 @@ const ThoughtList = ({ thought, userInfo }) => {
         <Text>{thought.text}</Text>
         <View style={styles.iconsView}>
           <Text style={styles.writtenBy}>
-            {thought.userId.name === userInfo.name
+            {thought.userId.name === userInfo?.name
               ? "You"
               : thought.userId.name}{" "}
             - {thought.createdAt.slice(0, 10)}
